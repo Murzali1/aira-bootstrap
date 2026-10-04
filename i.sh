@@ -34,5 +34,5 @@ echo "Жду, пока ключ добавят в GitHub (можно не зак
 until sudo -u aira git ls-remote "$REPO" >/dev/null 2>&1; do sleep 15; printf '.'; done
 echo; echo "Ключ подключён. Устанавливаю Айру (10–15 минут)…"
 install -d -o aira -g aira /opt/aira
-[ -d /opt/aira/src/.git ] || sudo -u aira git clone -q "$REPO" /opt/aira/src
+if [ -d /opt/aira/src/.git ]; then sudo -u aira git -C /opt/aira/src pull -q --ff-only; else sudo -u aira git clone -q "$REPO" /opt/aira/src; fi
 bash /opt/aira/src/cloud/install.sh
