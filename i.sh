@@ -7,6 +7,7 @@ REPO=git@github.com:Murzali1/aira-cloud.git
 [ "$(id -u)" = 0 ] || { echo "Запустите от root"; exit 1; }
 echo "== Айра: подготовка сервера =="
 export DEBIAN_FRONTEND=noninteractive
+rm -f /etc/apt/sources.list.d/caddy-stable.list   # leftover of an earlier attempt
 apt-get update -qq
 apt-get install -y -qq git curl openssh-client sudo >/dev/null
 id aira >/dev/null 2>&1 || useradd -m -s /bin/bash aira
