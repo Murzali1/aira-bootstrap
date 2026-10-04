@@ -6,8 +6,11 @@ set -e
 HOST=89-126-194-112.sslip.io
 IP=89.126.194.112
 echo "== Айра: настройка домашнего моста"
-yes | pkg update -y >/dev/null 2>&1 || true
-pkg install -y openssh curl >/dev/null
+echo "Обновляю пакеты Termux (2–5 минут)…"
+# Полное обновление: после частичного curl не запускается (несовпадение библиотек).
+yes | pkg upgrade -y -o Dpkg::Options::=--force-confnew >/dev/null 2>&1 || true
+pkg install -y openssh curl >/dev/null 2>&1
+curl --version >/dev/null 2>&1 || { echo "curl не работает. Выполните: pkg upgrade  — и запустите bash p ещё раз."; exit 1; }
 mkdir -p ~/.ssh ~/.termux/boot
 [ -f ~/.ssh/aira_bridge ] || ssh-keygen -q -t ed25519 -N '' -f ~/.ssh/aira_bridge -C aira-phone
 
