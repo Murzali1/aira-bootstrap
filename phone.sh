@@ -41,6 +41,8 @@ nohup ~/aira-bridge.sh >/dev/null 2>&1 &
 BOOT
 chmod +x ~/.termux/boot/aira-bridge
 ~/.termux/boot/aira-bridge
+# Без Termux:Boot: после перезагрузки телефона мост стартует, как только откроют Termux.
+grep -q aira-bridge ~/.bashrc 2>/dev/null || echo 'pgrep -f aira-bridge.sh >/dev/null || ~/.termux/boot/aira-bridge' >> ~/.bashrc
 
 echo
 echo "Готово. Телефон привязан, мост запустится в течение 1–2 минут."
